@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Programming Language Poll</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .container {
+            background: white;
+            width: 500px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .result {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #eee;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Programming Language Poll</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Vote</button>
+
+    </form>
+
+    <hr>
+
+    <h2>Voting Results</h2>
+
+    {% for poll in polls %}
+
+        <div class="result">
+            <span>{{ poll.language }}</span>
+            <strong>{{ poll.votes }} vote{{ poll.votes|pluralize }}</strong>
+        </div>
+
+    {% empty %}
+
+        <p>No voting options available.</p>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
